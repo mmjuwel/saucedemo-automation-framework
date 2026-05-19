@@ -1,13 +1,11 @@
-name: Sauce Demo Automation Tests for CI
+name: Sauce Demo Automation Tests
 
 on:
   push:
     branches:
-      - main
       - master
   pull_request:
     branches:
-      - main
       - master
 
 jobs:
@@ -30,7 +28,7 @@ jobs:
           dotnet-quality: 'preview'
 
       - name: Setup Chrome Browser
-        uses: browser-actions/setup-chrome@v1
+        uses: browser-actions/setup-chrome@latest
 
       - name: Restore dependencies
         run: dotnet restore SauceDemo.Automation.slnx
@@ -49,7 +47,7 @@ jobs:
 
       - name: Upload Extent HTML report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.5.0
         with:
           name: extent-report-${{ github.run_number }}
           path: '**/Reports/Extent/**'
@@ -57,7 +55,7 @@ jobs:
 
       - name: Upload TRX test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.5.0
         with:
           name: trx-results-${{ github.run_number }}
           path: TestResults/*.trx

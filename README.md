@@ -1,4 +1,4 @@
-# SauceDemo QA Automation Assignment
+# SauceDemo QA Automation Framework
 
 This repository contains a Selenium UI automation solution for https://www.saucedemo.com/ built with C#, Reqnroll, NUnit, and the Page Object Model pattern.
 
@@ -24,7 +24,14 @@ dotnet build SauceDemo.Automation.slnx
 dotnet test SauceDemo.Automation.slnx
 ```
 
-To run headless locally or in CI:
+## IDE Setup
+
+### Visual Studio 2026
+1. Open `SauceDemo.Automation.slnx`
+2. Restore NuGet packages (automatic)
+3. Run tests via **Test Explorer**
+
+### To run headless locally or in CI:
 
 ```powershell
 $env:HEADLESS = "true"
@@ -39,10 +46,15 @@ dotnet test SauceDemo.Automation.slnx
 
 ## Design notes
 
-- All UI interactions are encapsulated in page object classes.
-- Step definitions contain orchestration and assertions only.
-- Each scenario starts from a clean browser session through Reqnroll hooks.
-- ChromeDriver is managed through Selenium browser tooling and package dependencies.
+
+-  **Page Object Model** - All UI interactions encapsulated in page classes
+-  **Separation of Concerns** - Step definitions only orchestrate; pages handle actions
+-  **BDD Scenarios** - Human-readable Gherkin specs in `.feature` files
+-  **Clean Test Isolation** - Each scenario gets a fresh browser session
+-  **Configuration-Driven** - No hardcoded URLs or credentials
+-  **Environment Flexibility** - Switch between dev, test, prod configs via `TEST_ENV`
+
+
 
 ## Scope decisions
 
