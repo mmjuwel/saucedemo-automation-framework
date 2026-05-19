@@ -1,0 +1,72 @@
+name: Sauce Demo Automation Tests for CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  e2e-tests:
+    name: Run End-To-End Tests
+    runs-on: ubuntu-latest
+
+    env:
+      TEST_ENV: test
+      HEADLESS: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+          dotnet-quality: 'preview'
+
+      - name: Setup Chrome Browser
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Restore dependencies
+        run: dotnet restore SauceDemo.Automation.slnx
+
+      - name: Build solution
+        run: dotnet build SauceDemo.Automation.slnx --configuration Release --no-restore
+
+      - name: Run E2E tests
+        run: >
+          dotnet test SauceDemo.Automation.slnx
+          --configuration Release
+          --no-build
+          --logger "trx;LogFileName=TestResults.trx"
+          --results-directory TestResults
+        continue-on-error: true
+
+      - name: Upload Extent HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: extent-report-${{ github.run_number }}
+          path: '**/Reports/Extent/**'
+          if-no-files-found: warn
+
+      - name: Upload TRX test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trx-results-${{ github.run_number }}
+          path: TestResults/*.trx
+          if-no-files-found: warn
+
+      - name: Fail job if tests failed
+        if: always()
+        run: |
+          if grep -q 'outcome="Failed"' TestResults/TestResults.trx 2>/dev/null; then
+            echo "One or more tests failed."
+            exit 1
+          fi

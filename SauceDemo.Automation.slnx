@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SauceDemo.Automation.Framework/SauceDemo.Automation.Framework.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SauceDemo.Automation.Tests/SauceDemo.Automation.Tests.csproj" />
+  </Folder>
+</Solution>
