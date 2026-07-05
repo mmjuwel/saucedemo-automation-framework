@@ -1,4 +1,4 @@
-# SauceDemo QA Automation Framework
+# SauceDemo QA Automation BDD Framework Using C# & Reqnroll
 
 This repository contains a Selenium UI automation solution for https://www.saucedemo.com/ built with **C#**, **Reqnroll**, **NUnit**, and the **Page Object Model** pattern.
 
