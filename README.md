@@ -1,6 +1,6 @@
 # SauceDemo QA Automation Framework
 
-This repository contains a Selenium UI automation solution for https://www.saucedemo.com/ built with C#, Reqnroll, NUnit, and the Page Object Model pattern.
+This repository contains a Selenium UI automation solution for https://www.saucedemo.com/ built with **C#**, **Reqnroll**, **NUnit**, and the **Page Object Model** pattern.
 
 ## Solution structure
 
@@ -17,7 +17,7 @@ This repository contains a Selenium UI automation solution for https://www.sauce
 ## Clone and run
 
 ```powershell
-git clone <your-public-repository-url>
+git clone https://github.com/mmjuwel/saucedemo-automation-framework.git
 cd SauceDemo.Automation.Tests
 dotnet restore SauceDemo.Automation.slnx
 dotnet build SauceDemo.Automation.slnx
